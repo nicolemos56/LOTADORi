@@ -1,0 +1,8 @@
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.32
+pydantic>=2.9
+pydantic-settings>=2.6
+SQLAlchemy>=2.0.36
+GeoAlchemy2>=0.16
+psycopg2-binary>=2.9.10
+alembic>=1.14

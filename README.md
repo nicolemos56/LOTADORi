@@ -1,4 +1,4 @@
-# Lotador: Sistema de táxi inteligente para mobilidade turística em Angola
+#LOTADORi: Sistema de táxi inteligente para mobilidade turística em Angola
 
 > *"Da curiosidade à experiência."* Sistema de táxi inteligente para mobilidade turística em Angola
 

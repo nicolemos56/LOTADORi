@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     # Chaves LLM (usadas a partir da Sprint 02)
     openai_api_key: str = ""
     groq_api_key: str = ""
+    gemini_api_key: str = ""
 
     @property
     def cors_origins_list(self) -> list[str]:

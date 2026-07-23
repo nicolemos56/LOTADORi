@@ -24,6 +24,8 @@ class TravelSession:
     selected_place: dict[str, Any] | None = None
     available_drivers: list[dict[str, Any]] = field(default_factory=list)
     selected_driver: dict[str, Any] | None = None
+    booking_options: list[dict[str, Any]] = field(default_factory=list)
+    selected_booking_option: dict[str, Any] | None = None
     messages: list[dict[str, str]] = field(default_factory=list)
 
 
@@ -59,6 +61,102 @@ class TravelAgentService:
                 "reply": "Escreve o nome da tua cidade para eu te ajudar.",
                 "ui_component": "city_prompt",
                 "payload": {},
+                "session_id": session.session_id,
+            }
+
+        if session.stage == "driver_list":
+            selected_driver = self._find_driver_by_name(text, session.available_drivers)
+            if selected_driver:
+                session.selected_driver = selected_driver
+                session.stage = "driver_selected"
+                return {
+                    "reply": (
+                        f"Ótima escolha! O Driver-Guide {selected_driver['name']} está pronto para te acompanhar. "
+                        "Vou abrir o mapa e mostrar a posição em tempo real."
+                    ),
+                    "ui_component": "map_view",
+                    "payload": {
+                        "driver_selected": True,
+                        "trip_id": session.session_id,
+                        "driver": selected_driver,
+                    },
+                    "session_id": session.session_id,
+                }
+
+        if session.stage == "booking_options":
+            selected_place = self._find_booking_option(text, session.booking_options)
+            if selected_place:
+                session.selected_booking_option = selected_place
+                session.stage = "booking_confirmed"
+                reservation = self._mock_booking_reservation(selected_place)
+                return {
+                    "reply": (
+                        f"Ótima escolha! Encontrei disponibilidade para {selected_place['name']}. "
+                        "A reserva está pronta para ser confirmada."
+                    ),
+                    "ui_component": "reservation_card",
+                    "payload": {"reservation": reservation},
+                    "session_id": session.session_id,
+                }
+
+        if self._is_guide_request(text):
+            drivers = self._fetch_nearby_drivers_from_db(session_data=session, limit=5)
+            used_fallback = False
+            if not drivers:
+                drivers = self._get_sample_drivers()
+                used_fallback = True
+
+            session.stage = "driver_list"
+            session.available_drivers = drivers
+            reply = (
+                "Perfeito, encontrei estes Driver-Guides próximos para ti:\n"
+                if not used_fallback
+                else "Não consegui carregar a lista de motoristas locais, mas aqui tens algumas sugestões de Driver-Guides:\n"
+            )
+            reply += self._format_drivers_for_bot(drivers)
+            return {
+                "reply": reply,
+                "ui_component": "driver_cards",
+                "payload": {"drivers": drivers},
+                "session_id": session.session_id,
+            }
+
+        if self._is_booking_request(text):
+            booking_options = self._get_booking_options(text)
+            if booking_options:
+                session.stage = "booking_options"
+                session.booking_options = booking_options
+                if self._is_hotel_request(text):
+                    reply_prefix = (
+                        "Encontrei hotéis práticos para a tua estadia. "
+                        "Usa os botões abaixo para Ver detalhes, Reservar ou dizer Quero ir para este lugar."
+                    )
+                elif self._is_restaurant_request(text):
+                    reply_prefix = (
+                        "Encontrei restaurantes ótimos para jantar. "
+                        "Usa os botões abaixo para Ver detalhes, Reservar ou dizer Quero ir para este lugar."
+                    )
+                elif self._is_activity_request(text):
+                    reply_prefix = (
+                        "Encontrei atividades e passeios interessantes. "
+                        "Usa os botões abaixo para Ver detalhes, Reservar ou dizer Quero ir para este lugar."
+                    )
+                else:
+                    reply_prefix = (
+                        "Encontrei estas opções disponíveis. "
+                        "Usa os botões abaixo para Ver detalhes, Reservar ou dizer Quero ir para este lugar."
+                    )
+                return {
+                    "reply": reply_prefix,
+                    "ui_component": "place_cards",
+                    "payload": {"places": booking_options},
+                    "session_id": session.session_id,
+                }
+
+            return {
+                "reply": "Desculpa, não encontrei opções disponíveis no momento. Podes tentar novamente?",
+                "ui_component": "interest_prompt",
+                "payload": {"city": session.city, "interests": session.interests},
                 "session_id": session.session_id,
             }
 
@@ -229,6 +327,22 @@ class TravelAgentService:
                         "trip_id": session.session_id,
                         "driver": selected_driver,
                     },
+                    "session_id": session.session_id,
+                }
+
+        if session.stage == "booking_options":
+            selected_place = self._find_booking_option(text, session.booking_options)
+            if selected_place:
+                session.selected_booking_option = selected_place
+                session.stage = "booking_confirmed"
+                reservation = self._mock_booking_reservation(selected_place)
+                return {
+                    "reply": (
+                        f"Ótima escolha! Encontrei disponibilidade para {selected_place['name']}. "
+                        "A reserva está pronto para ser confirmada."
+                    ),
+                    "ui_component": "reservation_card",
+                    "payload": {"reservation": reservation},
                     "session_id": session.session_id,
                 }
 
@@ -535,6 +649,129 @@ class TravelAgentService:
                 )
             )
         return "\n".join(formatted)
+
+    def _is_booking_request(self, text: str) -> bool:
+        lower = text.lower()
+        return any(key in lower for key in ["hotel", "alojamento", "reserva", "jantar", "restaurante", "comer", "dinner"])
+
+    def _is_hotel_request(self, text: str) -> bool:
+        lower = text.lower()
+        return any(key in lower for key in ["hotel", "alojamento", "hospedagem", "pousada"])
+
+    def _is_restaurant_request(self, text: str) -> bool:
+        lower = text.lower()
+        return any(key in lower for key in ["jantar", "restaurante", "restaurantes", "comer", "dinner"])
+
+    def _is_guide_request(self, text: str) -> bool:
+        lower = text.lower()
+        return any(key in lower for key in ["guide", "driver", "guia", "guide-driver", "chamar guide", "chamar guia"])
+
+    def _is_activity_request(self, text: str) -> bool:
+        lower = text.lower()
+        return any(key in lower for key in ["tour", "passeio", "atividade", "experiência", "tour guiado", "atividade"])
+
+    def _get_booking_options(self, text: str) -> list[dict[str, Any]]:
+        if self._is_hotel_request(text):
+            return [
+                {
+                    "name": "Hotel Patriota",
+                    "description": "Hotel confortável no coração de Luanda com pequeno-almoço incluído.",
+                    "category": "Hotel",
+                    "photo_url": "https://images.unsplash.com/photo-1501117716987-c8a8c4b8f254?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.7,
+                    "visit_duration_minutes": 1440,
+                    "avg_cost": 120.0,
+                    "distance_km": 2.5,
+                    "best_time": "Check-in hoje",
+                    "highlights": ["Wi-Fi", "Pequeno-almoço", "Piscina"],
+                },
+                {
+                    "name": "Hotel Bahia Azul",
+                    "description": "Alojamento boutique perto da marginal, ideal para uma estadia tranquila.",
+                    "category": "Hotel",
+                    "photo_url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.6,
+                    "visit_duration_minutes": 1440,
+                    "avg_cost": 105.0,
+                    "distance_km": 3.2,
+                    "best_time": "Check-in hoje",
+                    "highlights": ["Jacuzzi", "Café da manhã", "Localização central"],
+                },
+            ]
+        if self._is_restaurant_request(text):
+            return [
+                {
+                    "name": "Restaurante Kwanza",
+                    "description": "Cozinha local premium com pratos tradicionais e ambiente refinado.",
+                    "category": "Restaurante",
+                    "photo_url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.8,
+                    "visit_duration_minutes": 120,
+                    "avg_cost": 45.0,
+                    "distance_km": 1.8,
+                    "best_time": "Jantar hoje",
+                    "highlights": ["Pratos locais", "Vinhos", "Ambiente romântico"],
+                },
+                {
+                    "name": "Bistrô da Baía",
+                    "description": "Experiência gastronômica com mariscos frescos e vista para o mar.",
+                    "category": "Restaurante",
+                    "photo_url": "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.7,
+                    "visit_duration_minutes": 120,
+                    "avg_cost": 55.0,
+                    "distance_km": 4.1,
+                    "best_time": "Jantar hoje",
+                    "highlights": ["Mariscos", "Terrace", "Serviço premium"],
+                },
+            ]
+        if self._is_activity_request(text):
+            return [
+                {
+                    "name": "Passeio de Barco ao Mussulo",
+                    "description": "Explora as ilhas e enseadas com um guia local em barco tradicional.",
+                    "category": "Atividade",
+                    "photo_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.9,
+                    "visit_duration_minutes": 180,
+                    "avg_cost": 65.0,
+                    "distance_km": 18.0,
+                    "best_time": "Final da tarde",
+                    "highlights": ["Praia", "Pôr do sol", "Guia local"],
+                },
+                {
+                    "name": "Tour Histórico de Luanda",
+                    "description": "Visita os principais marcos históricos da cidade com paragens culturais.",
+                    "category": "Atividade",
+                    "photo_url": "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=900&q=80",
+                    "rating": 4.8,
+                    "visit_duration_minutes": 210,
+                    "avg_cost": 50.0,
+                    "distance_km": 5.0,
+                    "best_time": "Manhã",
+                    "highlights": ["Monumentos", "Museus", "Cultura"],
+                },
+            ]
+        return []
+
+    def _find_booking_option(self, text: str, options: list[dict[str, Any]]) -> dict[str, Any] | None:
+        lower = text.lower()
+        for option in options:
+            if option["name"].lower() in lower or any(part in lower for part in option["name"].lower().split()):
+                return option
+        return None
+
+    def _mock_booking_reservation(self, option: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "name": option["name"],
+            "status": "Reserva confirmada",
+            "checkin": "Hoje",
+            "checkout": "Amanhã",
+            "guests": "2 pessoas",
+            "code": f"{option['name'].split()[0].upper()}20250701",
+            "photo_url": option.get("photo_url"),
+            "cta": "Ver confirmação",
+        }
 
     def _find_place(self, text: str) -> dict[str, Any]:
         places = self._get_places("Luanda", self._extract_interests(text))

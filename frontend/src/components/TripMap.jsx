@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -6,24 +6,27 @@ function MapUpdater({ position }) {
   const map = useMap();
 
   useEffect(() => {
-    if (position) {
-      map.setView(position, map.getZoom(), { animate: true });
-    }
+    const target = position ?? [-11.202, 17.874];
+    map.setView(target, map.getZoom(), { animate: false });
+    setTimeout(() => {
+      try { map.invalidateSize(); } catch (e) {}
+    }, 100);
   }, [map, position]);
 
   return null;
 }
 
 export default function TripMap({ position }) {
-  const defaultCenter = [-8.839, 13.289];
+  const defaultCenter = [-11.202, 17.874]; // Centro de Angola
+  const mapPosition = position ?? defaultCenter;
 
   return (
-    <div className="mt-4 h-72 overflow-hidden rounded-3xl border border-slate-200">
+    <div className="h-64 w-full overflow-hidden rounded-3xl bg-slate-950 shadow-inner">
       <MapContainer
-        center={position ?? defaultCenter}
-        zoom={15}
-        scrollWheelZoom={false}
-        style={{ height: "100%", width: "100%" }}
+        center={mapPosition}
+        zoom={7}
+        scrollWheelZoom={true}
+        style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

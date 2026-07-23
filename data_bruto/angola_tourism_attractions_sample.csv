@@ -1,0 +1,13 @@
+name,category,province,municipality,latitude,longitude,description,suggested_use
+Fortaleza de Sao Miguel,cultural_heritage,Luanda,Luanda,-8.8147,13.2312,Historic fortress and museum area in Luanda.,"Tourist guide, heritage mapping"
+Museu Nacional de Antropologia,museum,Luanda,Luanda,-8.8198,13.2354,Museum related to Angolan culture and anthropology.,Cultural tourism recommender
+Miradouro da Lua,natural_site,Luanda,Belas,-9.0374,13.0882,Iconic geological landscape near Luanda.,"Route planning, destination discovery"
+Cabo Ledo,beach_coastal,Luanda,Quiçama,-9.682,13.232,Coastal tourism destination known for beach and surfing.,Climate and coastal tourism analysis
+Parque Nacional da Quiçama,protected_area,Luanda,Quiçama,-9.75,13.5,Protected area and wildlife tourism destination.,"Ecotourism, biodiversity, route planning"
+Fenda da Tundavala,natural_site,Huila,Lubango,-14.828,13.407,Scenic escarpment and viewpoint near Lubango.,Nature tourism and accessibility mapping
+Cristo Rei do Lubango,landmark,Huila,Lubango,-14.917,13.492,Landmark monument and viewpoint in Lubango.,Destination discovery
+Quedas de Kalandula,waterfall,Malanje,Kalandula,-9.083,16.0,Major waterfall tourism attraction in Malanje.,Route planning and climate seasonality
+Pedras Negras de Pungo Andongo,natural_cultural_site,Malanje,Cacuso,-9.667,15.583,Rock formations with cultural and historical significance.,Heritage/nature tourism map
+Baia dos Tigres,coastal_site,Namibe,Tombwa,-16.6,11.75,Coastal and desert tourism area in Namibe.,Climate resilience and coastal mapping
+Deserto do Namibe,natural_site,Namibe,Namibe,-15.2,12.15,Desert landscape and unique ecology.,Nature tourism and climate dashboard
+Serra da Leba,natural_site,Huila,Lubango,-15.074,13.247,Mountain road and scenic landscape.,Tourism route/accessibility analysis

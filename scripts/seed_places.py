@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy.orm import Session
-from backend app.core.database import SessionLocal  # Importa a  sessão de BD configurada
-from backend app/models/place import Place        # Importa o modelo SQLAlchemy que já têm
+from backend.app.core.database import SessionLocal  # Importa a sessão de BD configurada
+from backend.app.models.place import Place        # Importa o modelo SQLAlchemy que já têm
 
 def executar_seeding(caminho_csv: str = "locais_turisticos_tratados.csv"):
     print("A iniciar o processo de seeding...")

@@ -17,7 +17,12 @@ class Settings(BaseSettings):
     database_url: str = (
         "postgresql+psycopg2://turismo:turismo@localhost:5432/turismoconnect"
     )
-    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    cors_origins: str = (
+        "http://localhost:5173,http://127.0.0.1:5173,http://[::1]:5173," \
+        "http://localhost:5174,http://127.0.0.1:5174,http://[::1]:5174," \
+        "http://localhost:4173,http://127.0.0.1:4173,http://[::1]:4173," \
+        "http://localhost:3000,http://127.0.0.1:3000,http://[::1]:3000"
+    )
 
     # Chaves LLM (usadas a partir da Sprint 02)
     openai_api_key: str = ""

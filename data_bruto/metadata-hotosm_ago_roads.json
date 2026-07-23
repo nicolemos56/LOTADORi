@@ -1,0 +1,85 @@
+{
+    "id": "7c4fee2c-e6de-4411-9931-245ae6120dda",
+    "title": "Angola : Roads (OpenStreetMap Export)",
+    "name": "hotosm_ago_roads",
+    "notes": "Road network across the region from OSM. Includes everything tagged with <code>highway</code>: motorways, residential streets, service roads, footways, and trails. Useful for routing, accessibility analysis, and evacuation planning.  OpenStreetMap is a free, collaborative world map built by volunteers. Completeness varies by region: urban areas are usually well-mapped, remote areas may be incomplete. Cross-check critical decisions with local field knowledge. <ul> <li>Source: <a href=\"https://www.openstreetmap.org\">OpenStreetMap</a></li> <li>OSM tags: <a href=\"https://wiki.openstreetmap.org/wiki/Key:highway\">Key:highway</a></li> <li>Part of many  <a href=\"https://data.humdata.org/organization/hot\">exports grid on HDX</a> by the <a href=\"https://www.hotosm.org/en/\">HOT</a></li> </ul>",
+    "dataset_source": "OpenStreetMap contributors",
+    "organization": "Humanitarian OpenStreetMap Team (HOT)",
+    "dataset_date": "[2026-05-10T00:00:00 TO 2026-05-10T23:59:59]",
+    "last_modified": "2026-05-12T12:06:15",
+    "data_update_frequency": "Every month",
+    "groups": [
+        "Angola"
+    ],
+    "license_title": "Open Database License (ODC-ODbL)",
+    "methodology": "Other",
+    "methodology_other": "Volunteered geographic information",
+    "caveats": "OpenStreetMap data is crowd sourced and cannot be considered to be exhaustive",
+    "tags": [
+        "geodata",
+        "roads",
+        "transportation"
+    ],
+    "resources": [
+        {
+            "created": "2026-05-10T08:18:09.597542",
+            "description": "roads (osm) data in GPKG format",
+            "format": "Geopackage",
+            "download_url": "https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_gpkg.zip",
+            "id": "2ad28f75-1b33-46e5-8485-2a5f4b5313f0",
+            "last_modified": "2026-05-12T12:06:11.624315",
+            "metadata_modified": "2026-05-13T09:47:36.230097",
+            "microdata": false,
+            "dataset_id": "7c4fee2c-e6de-4411-9931-245ae6120dda",
+            "resource_type": "api",
+            "name": "hotosm_ago_roads_osm_gpkg.zip",
+            "mimetype": null,
+            "size": "65.0M"
+        },
+        {
+            "created": "2026-05-10T08:19:14.514822",
+            "description": "roads (osm) data in SHP format",
+            "format": "SHP",
+            "download_url": "https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_shp.zip",
+            "id": "edfd462b-7437-4cdf-adb0-466122cf1781",
+            "last_modified": "2026-05-12T12:06:11.624417",
+            "metadata_modified": "2026-05-13T09:47:36.230196",
+            "microdata": false,
+            "dataset_id": "7c4fee2c-e6de-4411-9931-245ae6120dda",
+            "resource_type": "api",
+            "name": "hotosm_ago_roads_osm_shp.zip",
+            "mimetype": null,
+            "size": "62.2M"
+        },
+        {
+            "created": "2026-05-10T08:19:15.915186",
+            "description": "roads (osm) feature-level metadata",
+            "format": "JSON",
+            "download_url": "https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_metadata.json",
+            "id": "7e587b95-7833-47fd-9f3b-257c47046c92",
+            "last_modified": "2026-05-12T12:06:12",
+            "metadata_modified": "2026-05-13T09:47:36.230270",
+            "microdata": false,
+            "dataset_id": "7c4fee2c-e6de-4411-9931-245ae6120dda",
+            "resource_type": "api",
+            "name": "hotosm_ago_roads_osm_metadata.json",
+            "mimetype": null,
+            "size": "12.0K"
+        },
+        {
+            "created": "2026-05-12T12:06:15.024496",
+            "description": "roads (interactive report)",
+            "format": "HTML",
+            "download_url": "https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_report.html",
+            "id": "9bc68fb0-30ff-4b88-a5c6-21fa8d1504f7",
+            "last_modified": "2026-05-12T12:06:15",
+            "metadata_modified": "2026-05-13T09:47:36.230341",
+            "microdata": false,
+            "dataset_id": "7c4fee2c-e6de-4411-9931-245ae6120dda",
+            "resource_type": "api",
+            "name": "hotosm_ago_roads_report.html",
+            "mimetype": null,
+            "size": "18.7K"
+        }
+    ]
+}

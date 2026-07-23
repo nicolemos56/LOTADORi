@@ -1,0 +1,68 @@
+Field,Label,Value
+id,Dataset ID,7c4fee2c-e6de-4411-9931-245ae6120dda
+title,Title of Dataset,Angola : Roads (OpenStreetMap Export)
+name,Dataset URL,hotosm_ago_roads
+notes,Description,"Road network across the region from OSM. Includes everything tagged with <code>highway</code>: motorways, residential streets, service roads, footways, and trails. Useful for routing, accessibility analysis, and evacuation planning.  OpenStreetMap is a free, collaborative world map built by volunteers. Completeness varies by region: urban areas are usually well-mapped, remote areas may be incomplete. Cross-check critical decisions with local field knowledge. <ul> <li>Source: <a href=""https://www.openstreetmap.org"">OpenStreetMap</a></li> <li>OSM tags: <a href=""https://wiki.openstreetmap.org/wiki/Key:highway"">Key:highway</a></li> <li>Part of many  <a href=""https://data.humdata.org/organization/hot"">exports grid on HDX</a> by the <a href=""https://www.hotosm.org/en/"">HOT</a></li> </ul>"
+dataset_source,Source,OpenStreetMap contributors
+organization,Contributor,Humanitarian OpenStreetMap Team (HOT)
+dataset_date,Reference Period,[2026-05-10T00:00:00 TO 2026-05-10T23:59:59]
+last_modified,Updated,2026-05-12T12:06:15
+data_update_frequency,Expected Update Frequency,Every month
+groups,Location,Angola
+license_title,License,Open Database License (ODC-ODbL)
+methodology,Methodology,Other
+methodology_other,Define Methodology,Volunteered geographic information
+caveats,Caveats/Comments,OpenStreetMap data is crowd sourced and cannot be considered to be exhaustive
+tags,Tags,"geodata, roads, transportation"
+resource_1_created,Created,2026-05-10T08:18:09.597542
+resource_1_description,Description,roads (osm) data in GPKG format
+resource_1_format,File Format,Geopackage
+resource_1_download_url,Download URL,https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_gpkg.zip
+resource_1_id,Resource ID,2ad28f75-1b33-46e5-8485-2a5f4b5313f0
+resource_1_last_modified,Updated,2026-05-12T12:06:11.624315
+resource_1_metadata_modified,Metadata Updated,2026-05-13T09:47:36.230097
+resource_1_microdata,Microdata,False
+resource_1_dataset_id,Dataset ID,7c4fee2c-e6de-4411-9931-245ae6120dda
+resource_1_resource_type,Resource Type,api
+resource_1_name,Resource Name,hotosm_ago_roads_osm_gpkg.zip
+resource_1_mimetype,MIME Type,
+resource_1_size,Size,65.0M
+resource_2_created,Created,2026-05-10T08:19:14.514822
+resource_2_description,Description,roads (osm) data in SHP format
+resource_2_format,File Format,SHP
+resource_2_download_url,Download URL,https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_shp.zip
+resource_2_id,Resource ID,edfd462b-7437-4cdf-adb0-466122cf1781
+resource_2_last_modified,Updated,2026-05-12T12:06:11.624417
+resource_2_metadata_modified,Metadata Updated,2026-05-13T09:47:36.230196
+resource_2_microdata,Microdata,False
+resource_2_dataset_id,Dataset ID,7c4fee2c-e6de-4411-9931-245ae6120dda
+resource_2_resource_type,Resource Type,api
+resource_2_name,Resource Name,hotosm_ago_roads_osm_shp.zip
+resource_2_mimetype,MIME Type,
+resource_2_size,Size,62.2M
+resource_3_created,Created,2026-05-10T08:19:15.915186
+resource_3_description,Description,roads (osm) feature-level metadata
+resource_3_format,File Format,JSON
+resource_3_download_url,Download URL,https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_osm_metadata.json
+resource_3_id,Resource ID,7e587b95-7833-47fd-9f3b-257c47046c92
+resource_3_last_modified,Updated,2026-05-12T12:06:12
+resource_3_metadata_modified,Metadata Updated,2026-05-13T09:47:36.230270
+resource_3_microdata,Microdata,False
+resource_3_dataset_id,Dataset ID,7c4fee2c-e6de-4411-9931-245ae6120dda
+resource_3_resource_type,Resource Type,api
+resource_3_name,Resource Name,hotosm_ago_roads_osm_metadata.json
+resource_3_mimetype,MIME Type,
+resource_3_size,Size,12.0K
+resource_4_created,Created,2026-05-12T12:06:15.024496
+resource_4_description,Description,roads (interactive report)
+resource_4_format,File Format,HTML
+resource_4_download_url,Download URL,https://production-raw-data-api.s3.amazonaws.com/ISO3/AGO/roads/hotosm_ago_roads_report.html
+resource_4_id,Resource ID,9bc68fb0-30ff-4b88-a5c6-21fa8d1504f7
+resource_4_last_modified,Updated,2026-05-12T12:06:15
+resource_4_metadata_modified,Metadata Updated,2026-05-13T09:47:36.230341
+resource_4_microdata,Microdata,False
+resource_4_dataset_id,Dataset ID,7c4fee2c-e6de-4411-9931-245ae6120dda
+resource_4_resource_type,Resource Type,api
+resource_4_name,Resource Name,hotosm_ago_roads_report.html
+resource_4_mimetype,MIME Type,
+resource_4_size,Size,18.7K

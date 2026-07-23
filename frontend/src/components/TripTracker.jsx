@@ -39,29 +39,5 @@ export default function TripTracker({ tripId }) {
     return () => socket.close();
   }, [tripId, setDriverLocation]);
 
-  return (
-    <div className="border-t border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="font-semibold">Trip tracker</span>
-        <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-          {status}
-        </span>
-      </div>
-      <p className="text-xs text-slate-500">Trip ID: {tripId}</p>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
-
-      {location ? (
-        <div className="mt-3 grid gap-1 text-slate-700">
-          <p>Lat: {location.lat}</p>
-          <p>Lon: {location.lon}</p>
-          <p>Status: {location.status}</p>
-          <p>Step: {location.step}</p>
-        </div>
-      ) : (
-        <p className="mt-3 text-slate-500">Aguardar atualizações de localização do driver...</p>
-      )}
-
-      <TripMap position={location ? [location.lat, location.lon] : null} />
-    </div>
-  );
+  return null;
 }
